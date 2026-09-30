@@ -13,8 +13,8 @@ def parse(input: str) -> List[List[int]]:
     board = []
     for line in lines:
         row = [
-            int(ch) if ch.isdigit() else 0
-            for ch in line
+            int(token) if token.isdigit() else 0
+            for token in line.split()
         ]
 
         board.append(row)
