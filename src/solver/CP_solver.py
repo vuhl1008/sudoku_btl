@@ -1,14 +1,28 @@
+from time import perf_counter
 from docplex.cp.model import CpoModel
 
-def CP_solver(model:CpoModel, x:list[list[int]], input:list[list[int]])->list[list[int]]:
-    solution = model.solve()
+
+def CP_solver(
+    model: CpoModel,
+    x: list[list],
+    input: list[list[int]]
+) -> dict:
     n = len(input)
-    if not solution:
-        return 'No solution'
 
-    result = [
-        [solution[x[r][c]] for r in range(n)]
-        for c in range(n)
-    ]
+    start_solve = perf_counter()
+    solution = model.solve()
+    solve_time = perf_counter() - start_solve
 
-    return result
+    result = None
+
+    if solution:
+        result = [
+            [solution[x[r][c]] for c in range(n)]
+            for r in range(n)
+        ]
+
+
+    return {
+        "status": "FEASIBLE" if solution else "NO_SOLUTION",
+        "solve_time": solve_time
+    }

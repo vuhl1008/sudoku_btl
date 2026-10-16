@@ -11,11 +11,15 @@ def CP_modeling(input: list[list[int]])->tuple[CpoModel, list[list[int]]]:
 
    #Row constrain
    for r in range(n):
-     model.add(model.all_diff(x[r]))
+     model.add(
+       model.all_diff(x[r][c] for c in range(n))
+     )
 
    #Column constrain
    for c in range(n):
-     model.add(model.all_diff(x[c]))
+     model.add(
+       model.all_diff(x[r][c] for r in range(n))
+     )
 
    #Block constrain
    block_size = int(n**0.5)

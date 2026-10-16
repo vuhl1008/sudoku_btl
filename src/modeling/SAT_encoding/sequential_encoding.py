@@ -17,15 +17,6 @@ def add_sequential_amo(literals: list[int], clauses: list[list[int]], next_var:i
 def sequential_encode(input:list[list[int]])-> list[list[int]]:
     clauses = []
     n = len(input)
-    #ALO
-    for r in range(n):
-        for c in range(n):
-            literals = [
-                var(r, c, d, n)
-                for d in range(1, n+1)
-            ]
-
-            clauses.append(literals)
 
     next_var = n**3 + 1
 
@@ -36,6 +27,7 @@ def sequential_encode(input:list[list[int]])-> list[list[int]]:
                 var(r, c, d, n)
                 for d in range(1, n+1)
             ]
+            clauses.append(literals)
             next_var = add_sequential_amo(
                 literals,
                 clauses,
@@ -49,7 +41,8 @@ def sequential_encode(input:list[list[int]])-> list[list[int]]:
             literals = [
                 var(r, c, d, n)
                 for c in range(n)
-            ]                
+            ]
+            clauses.append(literals)                
             next_var = add_sequential_amo(
                 literals,
                 clauses,
@@ -64,6 +57,7 @@ def sequential_encode(input:list[list[int]])-> list[list[int]]:
                 var(r, c, d, n)
                 for r in range(n)
             ]
+            clauses.append(literals)
             next_var = add_sequential_amo(
                 literals,
                 clauses,
@@ -86,7 +80,7 @@ def sequential_encode(input:list[list[int]])-> list[list[int]]:
                     for r in range(block_size)
                     for c in range(block_size)
                 ]
-
+                clauses.append(literals)
                 next_var = add_sequential_amo(
                     literals,
                     clauses,

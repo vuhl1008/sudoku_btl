@@ -2,13 +2,13 @@ import os
 
 def read_file(file_path:str)->str:
     if not os.path.isfile(file_path):
-        raise FileNotFoundError(f"File not found: {path}")
+        raise FileNotFoundError(f"File not found: {file_path}")
 
     with open(file_path, 'r') as f:
         return f.read()    
     
 
-def parse(input: str) -> List[List[int]]:
+def parse(input: str) -> list[list[int]]:
     lines = input.strip().splitlines()
     board = []
     for line in lines:
